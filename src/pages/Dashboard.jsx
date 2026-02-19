@@ -587,61 +587,86 @@ const Dashboard = () => {
         )}
 
         {/* 3. QURAN */}
+        {/* 3. QURAN TRACKER */}
         {activeTab === "quran" && (
           <div className="bg-islamic-card p-6 rounded-2xl border border-gray-800 shadow-lg">
-            <h2 className="text-xl font-semibold text-islamic-primary mb-6 border-b border-gray-700 pb-2">
-              Quran Tracker 📖
+            <h2 className="text-xl font-semibold text-islamic-primary mb-4 border-b border-gray-700 pb-2">
+              Quran Tracker 📖 Jitna bhi quran padhe ho box mein likhdo taake
+              yaad rahe
             </h2>
+
             <div className="space-y-4">
               <div>
-                <label className="text-gray-400 text-sm">Para (Juz)</label>
+                <label className="text-gray-400 text-sm mb-1 block">
+                  Para (Juz)
+                </label>
                 <input
                   type="number"
                   value={quran.para}
                   onChange={(e) => setQuran({ ...quran, para: e.target.value })}
-                  className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white mt-1 outline-none"
-                  placeholder="1"
+                  className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white outline-none focus:border-islamic-primary"
+                  placeholder="e.g. 1"
                 />
               </div>
+
               <div>
-                <label className="text-gray-400 text-sm">Page Number</label>
+                <label className="text-gray-400 text-sm mb-1 block">
+                  Page Number
+                </label>
                 <input
                   type="number"
                   value={quran.page}
                   onChange={(e) => setQuran({ ...quran, page: e.target.value })}
-                  className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white mt-1 outline-none"
-                  placeholder="20"
+                  className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white outline-none focus:border-islamic-primary"
+                  placeholder="e.g. 10"
                 />
               </div>
-              <div className="bg-black/40 p-4 rounded-xl border border-gray-700 mt-4 flex justify-between items-center">
+
+              {/* 📖 RUKU FIELD ADDED HERE */}
+              <div>
+                <label className="text-gray-400 text-sm mb-1 block">
+                  Ruku Number
+                </label>
+                <input
+                  type="number"
+                  value={quran.ruku}
+                  onChange={(e) => setQuran({ ...quran, ruku: e.target.value })}
+                  className="w-full bg-black border border-gray-700 rounded-lg p-3 text-white outline-none focus:border-islamic-primary"
+                  placeholder="e.g. 4"
+                />
+              </div>
+
+              <div className="flex items-center justify-between bg-black/40 p-3 rounded-lg border border-gray-700">
                 <span className="text-gray-300">Sajdahs:</span>
-                <div className="flex items-center gap-4 bg-gray-900 rounded-lg px-2 py-1 border border-gray-700">
+                <div className="flex items-center gap-3">
                   <button
                     onClick={() =>
-                      quran.sajdah > 0 &&
-                      setQuran({ ...quran, sajdah: quran.sajdah - 1 })
+                      setQuran({
+                        ...quran,
+                        sajdah: Math.max(0, quran.sajdah - 1),
+                      })
                     }
-                    className="text-gray-400 hover:text-white text-xl px-2"
+                    className="bg-gray-800 text-white w-8 h-8 rounded hover:bg-gray-700"
                   >
                     -
                   </button>
-                  <span className="font-mono text-lg font-bold text-islamic-primary w-6 text-center">
+                  <span className="font-bold text-islamic-primary w-4 text-center">
                     {quran.sajdah}
                   </span>
                   <button
                     onClick={() =>
-                      quran.sajdah < 14 &&
                       setQuran({ ...quran, sajdah: quran.sajdah + 1 })
                     }
-                    className="text-islamic-primary font-bold text-xl px-2"
+                    className="bg-gray-800 text-white w-8 h-8 rounded hover:bg-gray-700"
                   >
                     +
                   </button>
                 </div>
               </div>
+
               <button
                 onClick={handleSaveQuran}
-                className="w-full bg-transparent border border-islamic-primary text-islamic-primary py-3 rounded-xl hover:bg-islamic-primary hover:text-black transition mt-4 font-bold"
+                className="w-full border border-islamic-primary text-islamic-primary font-bold py-3 rounded-lg hover:bg-islamic-primary hover:text-black transition"
               >
                 Update Progress 💾
               </button>

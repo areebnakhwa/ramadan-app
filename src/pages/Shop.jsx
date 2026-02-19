@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // 👇 YAHAN AAPKA WHATSAPP NUMBER SET HAI
+  const PHONE_NUMBER = "919819370937";
+
   // 👇 FULL PRODUCTS LIST
   const products = [
     // --- 🟢 HOMEMADE ITEMS ---
@@ -163,6 +166,13 @@ const Shop = () => {
     },
   ];
 
+  // 🚀 WHATSAPP REDIRECT FUNCTION
+  const buyOnWhatsApp = (productName, productPrice) => {
+    const message = `As-salamu alaykum! I want to order *${productName}* (${productPrice}) from your Ramadan Store. Please let me know the details.`;
+    const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-islamic-bg text-white p-6 md:p-12 relative pb-24">
       {/* Header Section */}
@@ -196,10 +206,10 @@ const Shop = () => {
           📞 For more enquiry or bulk orders, contact:
         </p>
         <a
-          href="tel:+919876543210"
+          href="tel:+919819370937"
           className="text-2xl md:text-3xl font-bold text-islamic-primary hover:text-white transition block"
         >
-          +91 9819370937 {/* 👈 YAHAN APNA ASLI NUMBER LIKHO */}
+          +91 9819370937
         </a>
       </div>
 
@@ -245,13 +255,13 @@ const Shop = () => {
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                 {product.desc}
               </p>
+
+              {/* 💬 UPDATED WHATSAPP BUTTON */}
               <button
-                onClick={() =>
-                  alert(`Enquiry for ${product.name}? Call us above!`)
-                }
-                className={`w-full text-black py-2 rounded-lg hover:opacity-90 transition font-bold shadow-lg ${product.type === "homemade" ? "bg-gradient-to-r from-islamic-primary to-yellow-600" : "bg-gradient-to-r from-blue-500 to-blue-400"}`}
+                onClick={() => buyOnWhatsApp(product.name, product.price)}
+                className={`w-full text-black py-3 rounded-xl hover:opacity-90 transition font-bold shadow-lg flex justify-center items-center gap-2 ${product.type === "homemade" ? "bg-gradient-to-r from-[#25D366] to-[#1DA851] text-white" : "bg-gradient-to-r from-[#25D366] to-[#1DA851] text-white"}`}
               >
-                Buy Now 🛒
+                <span className="text-xl">💬</span> Order on WhatsApp
               </button>
             </div>
           </div>
