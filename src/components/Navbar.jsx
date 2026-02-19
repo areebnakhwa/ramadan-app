@@ -1,69 +1,156 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase"; // Make sure path is correct
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { auth } from "../firebase"; // Ensure path is correct
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
-  // Logout Function (Optional, agar navbar mein logout chahiye)
-  const handleLogout = async () => {
-    await auth.signOut();
-    navigate("/login");
+  // Helper to check active link
+  const isActive = (path) => location.pathname === path;
+
+  const handleLogout = () => {
+    signOut(auth);
   };
 
   return (
-    <nav className="bg-black/90 backdrop-blur-md border-b border-gray-800 text-white sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* 👇 LOGO CHANGE: Ramadan Kareem */}
-        <Link
-          to="/"
-          className="text-2xl md:text-3xl font-bold text-islamic-primary tracking-wide hover:opacity-80 transition flex items-center gap-2"
-        >
-          Ramadan Kareem 🌙
-        </Link>
+    <nav className="bg-black/90 text-white backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-2xl font-bold text-islamic-primary flex items-center gap-2"
+          >
+            🌙 Ramadan Kareem
+          </Link>
 
-        {/* Desktop Links (Hidden on Mobile) */}
-        <ul className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-          <li className="hover:text-islamic-primary cursor-pointer transition">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="hover:text-islamic-primary cursor-pointer transition">
-            <Link to="/schedule">Schedule</Link>
-          </li>
-          <li className="hover:text-islamic-primary cursor-pointer transition">
-            <Link to="/shop">Shop</Link>
-          </li>
-          <li className="hover:text-islamic-primary cursor-pointer transition">
-            <Link to="/duas">Duas</Link>
-          </li>
-          <li>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link
+              to="/"
+              className={`${isActive("/") ? "text-islamic-primary" : "hover:text-islamic-primary"} transition`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/schedule"
+              className={`${isActive("/schedule") ? "text-islamic-primary" : "hover:text-islamic-primary"} transition`}
+            >
+              Schedule
+            </Link>
+
+            {/* 99 Names Link (Correctly placed) */}
+            <Link
+              to="/99names"
+              className={`${isActive("/99names") ? "text-islamic-primary" : "hover:text-islamic-primary"} transition`}
+            >
+              99 Names
+            </Link>
+
+            <Link
+              to="/duas"
+              className={`${isActive("/duas") ? "text-islamic-primary" : "hover:text-islamic-primary"} transition`}
+            >
+              Duas
+            </Link>
+            <Link
+              to="/shop"
+              className={`${isActive("/shop") ? "text-islamic-primary" : "hover:text-islamic-primary"} transition`}
+            >
+              Shop
+            </Link>
+
+            {/* Dashboard Button */}
             <Link
               to="/dashboard"
-              className="bg-islamic-primary text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500 transition"
+              className="bg-islamic-primary text-black px-4 py-2 rounded-full font-bold hover:bg-yellow-500 transition shadow-lg shadow-yellow-500/20"
             >
               Dashboard
             </Link>
-          </li>
-        </ul>
+          </div>
 
-        {/* Mobile Dashboard Icon (Agar Mobile Nav hai toh ye optional hai, par rakh sakte hain) */}
-        <Link to="/dashboard" className="md:hidden text-islamic-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </Link>
+          {/* Mobile Menu Button (Hamburger) */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-islamic-primary focus:outline-none"
+            >
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <div className="md:hidden bg-gray-900 border-b border-gray-800">
+          <Link
+            to="/"
+            className="block py-3 px-4 hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/schedule"
+            className="block py-3 px-4 hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Schedule
+          </Link>
+          <Link
+            to="/99names"
+            className="block py-3 px-4 hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            99 Names
+          </Link>
+          <Link
+            to="/duas"
+            className="block py-3 px-4 hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Duas
+          </Link>
+          <Link
+            to="/shop"
+            className="block py-3 px-4 hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Shop
+          </Link>
+          <Link
+            to="/dashboard"
+            className="block py-3 px-4 text-islamic-primary font-bold hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            Dashboard
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

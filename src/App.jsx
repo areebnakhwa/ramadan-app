@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Schedule from "./pages/Schedule";
 import Shop from "./pages/Shop";
 import Duas from "./pages/Duas";
+import Names from "./pages/Names";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/duas" element={<Duas />} />
+            <Route path="/99names" element={<Names />} />
           </Routes>
         </div>
 
