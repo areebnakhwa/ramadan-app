@@ -118,7 +118,7 @@ const Shop = () => {
     // --- 🔵 BAKE WIN ITEMS (Frozen & Ready to Cook) ---
     {
       id: 14,
-      name: "Spring Roll Sheets (Small)",
+      name: "Spring Roll Sheets (Small 500gm)",
       price: "₹80",
       image: "/images/roll_small.jpg",
       type: "brand",
@@ -126,15 +126,15 @@ const Shop = () => {
     },
     {
       id: 15,
-      name: "Spring Roll Sheets (Large)",
-      price: "₹45",
+      name: "Sring Roll Sheets (Large 500gm)",
+      price: "₹80",
       image: "/images/roll_large.jpg",
       type: "brand",
       desc: "Bake Win 8x8 inch Sheets. Pack of 25 Sheets (Approx). Big size for jumbo rolls.",
     },
     {
       id: 16,
-      name: "Samosa Patti (50 Pcs)",
+      name: "Samosa Patti (50 Pcs 500gm)",
       price: "₹80",
       image: "/images/samosa_50.jpg",
       type: "brand",
@@ -142,7 +142,7 @@ const Shop = () => {
     },
     {
       id: 19,
-      name: "Samosa Patti (25 Pcs)",
+      name: "Samosa Patti (25 Pcs 250gm)",
       price: "₹45",
       image: "/images/samosa_25.jpg",
       type: "brand",
@@ -150,7 +150,7 @@ const Shop = () => {
     },
     {
       id: 17,
-      name: "Crispy Thread (500g)",
+      name: "Crispy Thread (500gm)",
       price: "₹80",
       image: "/images/crispy_thread.jpg",
       type: "brand",
