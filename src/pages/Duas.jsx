@@ -167,7 +167,7 @@ const Duas = () => {
           </div>
         ))}
 
-        {/* --- FULL DUA CARD IMAGE SECTION --- */}
+        {/* --- FULL DUA CARD IMAGE SECTION (SIRF RAMADAN WALE TAB KE LIYE) --- */}
         {activeTab === "Ramadan" && (
           <div className="mt-10 bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-xl text-center">
             <h2 className="text-2xl font-bold text-white mb-2">

@@ -611,6 +611,36 @@ const Names = () => {
         </p>
       </div>
 
+      {/* 👇 YAHAN SE PASTE KARNA SHURU KARO 👇 */}
+      <div className="my-8 bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-xl text-center max-w-md mx-auto">
+        <h2 className="text-xl font-bold text-white mb-2">
+          Full 99 Names Card 📜
+        </h2>
+        <p className="text-gray-400 mb-5 text-sm">
+          Download the complete Asma-ul-Husna to your phone.
+        </p>
+
+        <a
+          href="/99-names.jpg"
+          download="99_Names_of_Allah.jpg"
+          className="inline-flex items-center gap-2 bg-islamic-primary text-black px-6 py-3 rounded-xl font-bold hover:bg-yellow-500 transition-all active:scale-95"
+        >
+          📥 Download Image
+        </a>
+
+        {/* Chhota sa Image Preview */}
+        <div className="mt-5 rounded-xl overflow-hidden border border-gray-700 bg-black flex justify-center">
+          <img
+            src="/99-names.jpg"
+            alt="99 Names Card"
+            className="w-full h-auto max-h-32 object-cover opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
+            onError={(e) => {
+              e.target.style.display = "none";
+            }}
+          />
+        </div>
+      </div>
+
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
         {namesData.map((name, index) => (

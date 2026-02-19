@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// Navbar aur Footer App.js se aayenge, yahan zaroorat nahi
 
 const Home = () => {
   const [hijriDate, setHijriDate] = useState("");
@@ -62,66 +61,20 @@ const Home = () => {
       text: "Feed the hungry, visit the sick, and set free the captives.",
       source: "Sahih Al-Bukhari",
     },
-    <div className="mt-8 mb-4 animate-fade-in-up">
-      {/* Divider & Title */}
-      <div className="flex items-center justify-center gap-4 mb-5">
-        <div className="h-[1px] bg-gray-800 flex-1"></div>
-        <h3 className="text-xs font-bold text-islamic-primary uppercase tracking-widest">
-          Explore Features
-        </h3>
-        <div className="h-[1px] bg-gray-800 flex-1"></div>
-      </div>
-
-      {/* Feature Cards Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        <Link
-          to="/dashboard"
-          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
-        >
-          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            🌙
-          </span>
-          <span className="text-sm font-bold text-white mb-1">Dashboard</span>
-          <span className="text-[10px] text-gray-400">Track Fast & Namaz</span>
-        </Link>
-
-        <Link
-          to="/99names"
-          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
-        >
-          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            ✨
-          </span>
-          <span className="text-sm font-bold text-white mb-1">99 Names</span>
-          <span className="text-[10px] text-gray-400">Asma-ul-Husna</span>
-        </Link>
-
-        <Link
-          to="/duas"
-          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
-        >
-          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            🤲
-          </span>
-          <span className="text-sm font-bold text-white mb-1">Daily Duas</span>
-          <span className="text-[10px] text-gray-400">Ayatul Kursi & more</span>
-        </Link>
-
-        <Link
-          to="/schedule"
-          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
-        >
-          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            📅
-          </span>
-          <span className="text-sm font-bold text-white mb-1">Schedule</span>
-          <span className="text-[10px] text-gray-400">
-            Full Month Timetable
-          </span>
-        </Link>
-      </div>
-    </div>,
   ];
+
+  // --- 🛠️ HELPER: Time Adjuster (For Local Calendar Match) ---
+  const adjustTime = (timeStr, minutesOffset) => {
+    if (!timeStr) return timeStr;
+    const cleanTime = timeStr.split(" ")[0];
+    const [hours, minutes] = cleanTime.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    date.setMinutes(date.getMinutes() + minutesOffset);
+    const newHours = String(date.getHours()).padStart(2, "0");
+    const newMinutes = String(date.getMinutes()).padStart(2, "0");
+    return `${newHours}:${newMinutes}`;
+  };
 
   useEffect(() => {
     const today = new Date();
@@ -158,9 +111,7 @@ const Home = () => {
       );
     }
 
-    // 3. Hadith Logic (Automatic Daily Rotation)
-    // Aaj ki date ke hisaab se hadith pick karega. (Example: 17th date = 17th Hadith)
-    // Agar date list se badi hai, toh wapas shuru se (Modulus operator %)
+    // 3. Hadith Logic
     const index = day % hadithCollection.length;
     setTodaysHadith(hadithCollection[index]);
 
@@ -171,8 +122,13 @@ const Home = () => {
           `https://api.aladhan.com/v1/timingsByCity?city=Mumbai&country=India&method=1&school=1`,
         );
         const data = await response.json();
-        setSehriTime(data.data.timings.Fajr);
-        setIftarTime(data.data.timings.Maghrib);
+
+        // 🚨 YAHAN LOCAL CALENDAR KA OFFSET LAGA HAI 🚨
+        const adjustedSehri = adjustTime(data.data.timings.Fajr, -10); // Sehri 10 min pehle band
+        const adjustedIftar = adjustTime(data.data.timings.Maghrib, 3); // Iftar 3 min baad
+
+        setSehriTime(adjustedSehri);
+        setIftarTime(adjustedIftar);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -248,6 +204,73 @@ const Home = () => {
             — {todaysHadith.source}
           </span>
         </p>
+      </div>
+
+      {/* --- EXPLORE MORE FEATURES SECTION --- */}
+      <div className="mt-8 mb-4 animate-fade-in-up">
+        {/* Divider & Title */}
+        <div className="flex items-center justify-center gap-4 mb-5">
+          <div className="h-[1px] bg-gray-800 flex-1"></div>
+          <h3 className="text-xs font-bold text-islamic-primary uppercase tracking-widest">
+            Explore Features
+          </h3>
+          <div className="h-[1px] bg-gray-800 flex-1"></div>
+        </div>
+
+        {/* Feature Cards Grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <Link
+            to="/dashboard"
+            className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+          >
+            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+              🌙
+            </span>
+            <span className="text-sm font-bold text-white mb-1">Dashboard</span>
+            <span className="text-[10px] text-gray-400">
+              Track Fast & Namaz
+            </span>
+          </Link>
+
+          <Link
+            to="/99names"
+            className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+          >
+            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+              ✨
+            </span>
+            <span className="text-sm font-bold text-white mb-1">99 Names</span>
+            <span className="text-[10px] text-gray-400">Asma-ul-Husna</span>
+          </Link>
+
+          <Link
+            to="/duas"
+            className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+          >
+            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+              🤲
+            </span>
+            <span className="text-sm font-bold text-white mb-1">
+              Daily Duas
+            </span>
+            <span className="text-[10px] text-gray-400">
+              Ayatul Kursi & more
+            </span>
+          </Link>
+
+          <Link
+            to="/schedule"
+            className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+          >
+            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+              📅
+            </span>
+            <span className="text-sm font-bold text-white mb-1">Schedule</span>
+            <span className="text-[10px] text-gray-400">
+              Full Month Timetable
+            </span>
+          </Link>
+        </div>
       </div>
     </div>
   );

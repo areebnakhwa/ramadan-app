@@ -170,6 +170,19 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [prayerTimes]);
 
+  // --- 🛠️ HELPER: Time Adjuster (For Local Calendar Match) ---
+  const adjustTime = (timeStr, minutesOffset) => {
+    if (!timeStr) return timeStr;
+    const cleanTime = timeStr.split(" ")[0];
+    const [hours, minutes] = cleanTime.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    date.setMinutes(date.getMinutes() + minutesOffset);
+    const newHours = String(date.getHours()).padStart(2, "0");
+    const newMinutes = String(date.getMinutes()).padStart(2, "0");
+    return `${newHours}:${newMinutes}`;
+  };
+
   const getPrayerTimes = async (
     cityInput,
     countryInput,
@@ -185,7 +198,13 @@ const Dashboard = () => {
       );
       const data = await response.json();
       if (data.code === 200) {
-        setPrayerTimes(data.data.timings);
+        let timings = data.data.timings;
+
+        // 🚨 YAHAN LOCAL CALENDAR KA OFFSET LAGA HAI 🚨
+        timings.Fajr = adjustTime(timings.Fajr, -10); // Sehri 10 min pehle band
+        timings.Maghrib = adjustTime(timings.Maghrib, 3); // Iftar 3 min baad
+
+        setPrayerTimes(timings);
         setDisplayLocation(`${cityInput}, ${countryInput}`);
         if (showAlert) alert(`Time updated for ${cityInput}! ✅`);
         if (user)
@@ -493,6 +512,7 @@ const Dashboard = () => {
                 onChange={(e) => setMethod(Number(e.target.value))}
                 className="bg-gray-900 border border-gray-700 text-gray-300 text-xs rounded p-2 outline-none"
               >
+                <option value={1}>Method: Karachi (India/Pak)</option>
                 <option value={2}>Method: ISNA</option>
                 <option value={4}>Method: Makkah</option>
                 <option value={1}>Method: MWL</option>
