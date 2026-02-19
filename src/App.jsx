@@ -10,6 +10,7 @@ import Schedule from "./pages/Schedule";
 import Shop from "./pages/Shop";
 import Duas from "./pages/Duas";
 import Names from "./pages/Names";
+import Qibla from "./pages/Qibla";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/duas" element={<Duas />} />
             <Route path="/99names" element={<Names />} />
+            <Route path="/qibla" element={<Qibla />} />
           </Routes>
         </div>
 

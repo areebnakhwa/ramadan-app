@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // Navbar aur Footer App.js se aayenge, yahan zaroorat nahi
 
 const Home = () => {
@@ -61,6 +62,65 @@ const Home = () => {
       text: "Feed the hungry, visit the sick, and set free the captives.",
       source: "Sahih Al-Bukhari",
     },
+    <div className="mt-8 mb-4 animate-fade-in-up">
+      {/* Divider & Title */}
+      <div className="flex items-center justify-center gap-4 mb-5">
+        <div className="h-[1px] bg-gray-800 flex-1"></div>
+        <h3 className="text-xs font-bold text-islamic-primary uppercase tracking-widest">
+          Explore Features
+        </h3>
+        <div className="h-[1px] bg-gray-800 flex-1"></div>
+      </div>
+
+      {/* Feature Cards Grid */}
+      <div className="grid grid-cols-2 gap-3">
+        <Link
+          to="/dashboard"
+          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+        >
+          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+            🌙
+          </span>
+          <span className="text-sm font-bold text-white mb-1">Dashboard</span>
+          <span className="text-[10px] text-gray-400">Track Fast & Namaz</span>
+        </Link>
+
+        <Link
+          to="/99names"
+          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+        >
+          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+            ✨
+          </span>
+          <span className="text-sm font-bold text-white mb-1">99 Names</span>
+          <span className="text-[10px] text-gray-400">Asma-ul-Husna</span>
+        </Link>
+
+        <Link
+          to="/duas"
+          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+        >
+          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+            🤲
+          </span>
+          <span className="text-sm font-bold text-white mb-1">Daily Duas</span>
+          <span className="text-[10px] text-gray-400">Ayatul Kursi & more</span>
+        </Link>
+
+        <Link
+          to="/schedule"
+          className="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg hover:border-islamic-primary transition-all active:scale-95 group"
+        >
+          <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+            📅
+          </span>
+          <span className="text-sm font-bold text-white mb-1">Schedule</span>
+          <span className="text-[10px] text-gray-400">
+            Full Month Timetable
+          </span>
+        </Link>
+      </div>
+    </div>,
   ];
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -457,14 +457,27 @@ const Dashboard = () => {
                 {nextPrayer.timeLeft}
               </p>
             </div>
-            <div className="border-b border-gray-700 pb-2 mb-4">
-              <h2 className="text-xl font-semibold text-islamic-primary">
-                Prayer Times 🕌
-              </h2>
-              <p className="text-xs text-gray-400 mt-1">
-                in{" "}
-                <span className="text-white font-bold">{displayLocation}</span>
-              </p>
+            {/* --- PRAYER TIMES HEADER & QIBLA BUTTON --- */}
+            <div className="border-b border-gray-700 pb-4 mb-4 flex justify-between items-start">
+              <div>
+                <h2 className="text-xl font-semibold text-islamic-primary">
+                  Prayer Times 🕌
+                </h2>
+                <p className="text-xs text-gray-400 mt-1">
+                  in{" "}
+                  <span className="text-white font-bold uppercase">
+                    {displayLocation}
+                  </span>
+                </p>
+              </div>
+
+              {/* 🧭 Qibla Button */}
+              <Link
+                to="/qibla"
+                className="bg-gray-800 border border-gray-700 text-islamic-primary px-3 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-black/50 hover:bg-gray-700 hover:text-yellow-400 transition-all active:scale-95"
+              >
+                <span className="text-xl">🧭</span> Qibla
+              </Link>
             </div>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <select

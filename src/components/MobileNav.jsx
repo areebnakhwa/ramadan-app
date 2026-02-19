@@ -5,13 +5,13 @@ const MobileNav = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  // Yahan saare links define kiye hain
+  // Naya Order
   const navItems = [
     { name: "Home", path: "/", icon: "🏠" },
-    { name: "Schedule", path: "/schedule", icon: "📅" },
-    { name: "99 Names", path: "/99names", icon: "✨" }, // 👈 Yeh naya add kiya hai
-    { name: "Duas", path: "/duas", icon: "🤲" },
     { name: "Dashboard", path: "/dashboard", icon: "🌙" },
+    { name: "99 Names", path: "/99names", icon: "✨" },
+    { name: "Duas", path: "/duas", icon: "🤲" },
+    { name: "Schedule", path: "/schedule", icon: "📅" },
   ];
 
   return (
