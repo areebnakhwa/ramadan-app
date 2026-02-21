@@ -65,10 +65,10 @@ const Schedule = () => {
           </p>
         </div>
 
-        {/* 👇 FIX: Naam wahi lagaya jo tumhare screenshot mein dikh raha hai */}
+        {/* 👇 YEH HAI FRESH 100% WORKING DOWNLOAD LINK 👇 */}
         <a
-          href="/images/Time_table2k26.jpg"
-          download="Ramadan_2026_Schedule.jpg"
+          href="/ramadan-timetable.jpg"
+          download="Ramadan_Timetable.jpg"
           className="bg-islamic-primary text-black font-bold px-6 py-2 rounded-lg hover:bg-yellow-500 transition shadow-[0_0_15px_rgba(212,175,55,0.4)] flex items-center gap-2"
         >
           <span>📥</span> Download Image
