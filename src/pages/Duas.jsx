@@ -23,6 +23,34 @@ const duasData = [
       "O Allah! I fasted for You and I believe in You and I put my trust in You and I break my fast with Your sustenance.",
   },
 
+  // --- ASHRA DUAS (NAYE ADD KIYE HAIN) ---
+  {
+    id: 9,
+    category: "1st Ashra",
+    title: "1st Ashra Dua (Days 1-10: Mercy / Rehmat)",
+    arabic: "رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ",
+    transliteration: "Rabbighfir warham wa anta khairur raahimeen",
+    translation:
+      "O My Lord! Forgive and have mercy, for You are the best of those who show mercy.",
+  },
+  {
+    id: 10,
+    category: "2nd Ashra",
+    title: "2nd Ashra Dua (Days 11-20: Forgiveness / Maghfirat)",
+    arabic: "أَسْتَغْفِرُ اللّٰهَ رَبِّي مِنْ كُلِّ ذَنْبٍ وَأَتُوبُ إِلَيْهِ",
+    transliteration: "Astaghfirullaha rabbi min kulli zambin wa atoobu ilaih",
+    translation:
+      "I seek forgiveness from Allah, my Lord, from every sin I committed, and I turn to Him in repentance.",
+  },
+  {
+    id: 11,
+    category: "3rd Ashra",
+    title: "3rd Ashra Dua (Days 21-30: Safety from Hell / Nijaat)",
+    arabic: "اَللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",
+    transliteration: "Allahumma ajirni minan naar",
+    translation: "O Allah! Save me from the fire of Hell.",
+  },
+
   // --- AYATUL KURSI ---
   {
     id: 3,
@@ -113,9 +141,17 @@ const Duas = () => {
         </p>
       </div>
 
-      {/* Tabs / Categories */}
+      {/* 👇 YAHAN NAYE TABS ADD HUE HAIN 👇 */}
       <div className="flex justify-center gap-2 mb-8 flex-wrap">
-        {["Ramadan", "Protection", "4 Quls", "Durood"].map((tab) => (
+        {[
+          "Ramadan",
+          "1st Ashra",
+          "2nd Ashra",
+          "3rd Ashra",
+          "Protection",
+          "4 Quls",
+          "Durood",
+        ].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
